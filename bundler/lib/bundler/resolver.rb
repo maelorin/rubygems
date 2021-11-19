@@ -28,13 +28,13 @@ module Bundler
     def initialize(source_requirements, base, gem_version_promoter, additional_base_requirements, platforms, metadata_requirements)
       @source_requirements = source_requirements
       @metadata_requirements = metadata_requirements
-      @base = base
       @resolver = Molinillo::Resolver.new(self, self)
       @search_for = {}
       @base_dg = Molinillo::DependencyGraph.new
-      @base.each do |ls|
+      @base = base.materialized_for_resolution do |ls|
         dep = Dependency.new(ls.name, ls.version)
         @base_dg.add_vertex(ls.name, DepProxy.get_proxy(dep, ls.platform), true)
+        Gem::Platform.match_spec?(ls)
       end
       additional_base_requirements.each {|d| @base_dg.add_vertex(d.name, d) }
       @platforms = platforms.reject {|p| p != Gem::Platform::RUBY && (platforms - [p]).any? {|pl| generic(pl) == p } }
