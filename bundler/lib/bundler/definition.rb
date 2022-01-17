@@ -667,6 +667,8 @@ module Bundler
     # commonly happen if the Gemfile has changed since the lockfile was last
     # generated
     def converge_locked_specs
+      return @locked_specs if Bundler.frozen_bundle?
+
       resolve = converge_specs(@locked_specs)
 
       diff = nil
