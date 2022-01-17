@@ -144,7 +144,7 @@ module Bundler
       @dependency_changes = converge_dependencies
       @local_changes = converge_locals
 
-      @locked_specs_incomplete_for_platform = !@locked_specs.for(requested_dependencies & expand_dependencies(locked_dependencies), true, true)
+      @locked_specs_incomplete_for_platform = !@locked_specs.for(requested_locked_dependencies, true, true)
 
       @requires = compute_requires
     end
@@ -223,6 +223,10 @@ module Bundler
 
     def requested_dependencies
       dependencies_for(requested_groups)
+    end
+
+    def requested_locked_dependencies
+      requested_dependencies & expand_dependencies(locked_dependencies)
     end
 
     def current_dependencies
@@ -707,7 +711,7 @@ module Bundler
           # Path sources have special logic
           if s.source.instance_of?(Source::Path) || s.source.instance_of?(Source::Gemspec)
             next if specs.
-                    for(requested_dependencies, false, true).
+                    for(requested_locked_dependencies, false, true).
                     none? {|locked_spec| locked_spec.source == s.source }
 
             new_spec = s.source.specs[s].first
