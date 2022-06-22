@@ -65,6 +65,17 @@ class TestGemCommandsEnvironmentCommand < Gem::TestCase
     assert_equal '', @ui.error
   end
 
+  def test_execute_userhome
+    @cmd.send :handle_options, %w[userhome]
+
+    use_ui @ui do
+      @cmd.execute
+    end
+
+    assert_equal "#{Gem.user_dir}\n", @ui.output
+    assert_equal '', @ui.error
+  end
+
   def test_execute_gempath
     @cmd.send :handle_options, %w[gempath]
 
