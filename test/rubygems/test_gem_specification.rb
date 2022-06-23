@@ -3676,8 +3676,6 @@ end
 
     install_specs b
 
-    Gem::Specification.reset
-
     assert Gem::Specification.find_by_name "b"
 
     assert_raise Gem::MissingSpecVersionError do
