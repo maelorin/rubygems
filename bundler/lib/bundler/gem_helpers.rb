@@ -5,12 +5,6 @@ module Bundler
     GENERIC_CACHE = { Gem::Platform::RUBY => Gem::Platform::RUBY } # rubocop:disable Style/MutableConstant
     GENERICS = [
       [Gem::Platform.new("java"), Gem::Platform.new("java")],
-      [Gem::Platform.new("mswin32"), Gem::Platform.new("mswin32")],
-      [Gem::Platform.new("mswin64"), Gem::Platform.new("mswin64")],
-      [Gem::Platform.new("universal-mingw32"), Gem::Platform.new("universal-mingw32")],
-      [Gem::Platform.new("x64-mingw32"), Gem::Platform.new("x64-mingw32")],
-      [Gem::Platform.new("x86_64-mingw32"), Gem::Platform.new("x64-mingw32")],
-      [Gem::Platform.new("mingw32"), Gem::Platform.new("x86-mingw32")],
     ].freeze
 
     def generic(p)

@@ -13,13 +13,6 @@ RSpec.describe "Resolving platform craziness" do
       should_resolve_as %w[nokogiri-1.4.2 nokogiri-1.4.2-java weakling-0.0.3]
     end
 
-    it "doesn't pull gems that don't exist for the current platform" do
-      dep "nokogiri"
-      platforms "ruby"
-
-      should_resolve_as %w[nokogiri-1.4.2]
-    end
-
     it "doesn't pull gems when the version is available for all requested platforms" do
       dep "nokogiri"
       platforms "mswin32"
